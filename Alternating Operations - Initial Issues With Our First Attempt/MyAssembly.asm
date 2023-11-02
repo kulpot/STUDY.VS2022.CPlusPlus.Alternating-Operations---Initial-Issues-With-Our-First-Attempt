@@ -7,7 +7,7 @@
 ;	counter dword 0		; dword(doubleWord) is 32bits and 2words ---> 1byte=8bits, 2bytes=word, 4bytes(32bits)=2words -> dword
 count dword 0		; ------- Alternating Operations - A First Code Attempt --------
 power dword 2		; ------- Alternating Operations - A First Code Attempt --------
-total dword 0		; ------- Alternating Operations - A First Code Attempt --------
+;total dword 0		; ------- Alternating Operations - A First Code Attempt --------
 
 .code
 
@@ -27,6 +27,7 @@ doit proc
 ;		2^5				32				2048			800
 
 	mov ebx, 2
+	xor ecx, ecx		; 0 out ecx
 again:
 	add ecx, power
 	mov eax, power		; for intel structure running eax
@@ -39,11 +40,11 @@ again:
 	mov power, eax
 
 	mov eax, power
-	mul total
-	mov total, eax
+	mul ecx				; replace total to ecx
+	mov ecx, eax		; replace total to ecx
 
 	inc count
-	cmp count, 5
+	cmp count, 5		; bug count 1 add/mul
 	jl again
 	ret
 
